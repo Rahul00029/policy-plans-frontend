@@ -1,0 +1,40 @@
+<!-- search-policy.component.html -->
+<app-header></app-header>
+<div class="container  w-25">
+    <div class="form-group">
+      <h3>Select the Search Criteria:</h3>
+      <select class="form-select" [(ngModel)]="selectedCriteria" >
+        <option *ngFor="let criteria of searchCriteria" [value]="criteria">{{criteria}}</option>
+      </select>
+    </div>
+    
+    <div class="form-group" *ngIf="selectedCriteria!==''">
+        <h3>Enter {{selectedCriteria}}</h3>
+        <input type="number" [(ngModel)]="searchValue" class="form-control" placeholder="Enter search value" >
+    </div>
+    <div>
+        <button (click)="search()" class="btn btn-success">Search</button>
+    </div>
+</div>
+
+  <div class=" row" *ngIf="showPoliciesflag">
+    <div class="col-sm-4 mx-auto" *ngFor="let policy of policies; let i=index">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-text"><b>ID:</b> {{policy.policyId}}</p>
+          <p class="card-text"><b>Policy Name:</b> {{policy.policyName}}</p>
+          <p class="card-text"><b>Policy Description:</b>{{policy.policyDescription}}</p>
+          <button class="btn btn-success" [routerLink]="['/subscribe',policy.policyId]" [disabled]="checkRole">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showMessage">
+    <h2>No Policy Found</h2>
+  </div>
+
+
+
+  
+  

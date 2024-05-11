@@ -1,0 +1,129 @@
+<app-header></app-header>
+<div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="showSuccessMessage">
+  <strong>Congratulations!</strong> Subscription added successfully.
+</div>
+
+<div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="showErrorMessage">
+  <strong>Failure!</strong> Subscriber already exist, please add new subscription.
+</div>
+
+<div class = "policies-detail table-responsive">
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Policy Id</th>
+        <th scope="col">Policy Name</th>
+        <th scope="col">Policy Description</th>
+        <th scope="col">Tenure</th>
+        <th scope="col">Monthly Premium</th>
+        <th scope="col">Maturity Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{policy.policyId}}</td>
+        <td>{{policy.policyName}}</td>
+        <td>{{policy.policyDescription}}</td>
+        <td>{{policy.tenure}}</td>
+        <td>{{policy.monthlyPremium}}</td>
+        <td>{{policy.maturityAmount}}</td>
+      </tr>
+    </tbody>
+    
+  </table>
+  <div class="subscribe-button">
+    <button class="btn btn-success" id="showformButton" (click)="showSubscriptionForm()" >Subscribe</button>
+  </div> 
+</div>
+
+<div class="container-fluid shadow p-3 mb-5 bg-body rounded" *ngIf="showFormFlag">
+    <h2>Subscriber Details</h2>
+    <form [formGroup]="subscriptionForm" class="shadow-sm">
+      <div class="form-group">
+        <label for="subscriptionid">Subscription Id</label>
+        <input type="number" id="subscriptionid" name="subscriptionid" class="form-control" formControlName="subscriptionId" (keypress)="limitInputSubscriptionId($event)"/>
+        <span *ngIf="subscriptionForm.controls.subscriptionId.errors?.min && subscriptionForm.controls.subscriptionId.touched">
+          <p>Subscription Id must be positive.</p>
+        </span>
+        <span *ngIf="subscriptionForm.controls.subscriptionId.errors?.required && subscriptionForm.controls.subscriptionId.touched">
+          <p>Subscription Id is required</p>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="policyId">Policy Id</label><br />
+        <input type="number" id="policyId" name="policyId" class="form-control" formControlName="policyId"/>
+      </div>
+
+      <div class="form-group">
+        <label for="policyholdername">Policy Holder Name</label><br />
+        <input type="text" id="policyholdername" name="policyholdername" class="form-control" formControlName="policyHolderName" (keypress)="limitInputPolicyHolderName($event)"/>
+        <span *ngIf="subscriptionForm.controls.policyHolderName.errors?.required && subscriptionForm.controls.policyHolderName.touched">
+          <p>PolicyHolder Name is required</p>
+        </span>
+        <span *ngIf="(subscriptionForm.controls.policyHolderName.errors?.minLength || subscriptionForm.controls.policyHolderName.errors?.pattern) && subscriptionForm.controls.policyHolderName.touched">
+          <p>PolicyHolder Name only contains alphabets and must be atleast 5 character long.</p>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="username">UserName</label><br />
+        <input type="text" id="username" name="username" class="form-control" formControlName="username" (keypress)="limitInputUsername($event)"/>
+        <span *ngIf="subscriptionForm.controls.username.errors?.required && subscriptionForm.controls.username.touched">
+          <p>UserName is required</p>
+        </span>
+      </div>
+
+      
+      <div class="dropdown">
+        <label>Subscription Status</label><br/>
+        <select class="form-select" id="subscriptionstatus" name="subscriptionstatus" formControlName="subscriptionStatus">
+            <option *ngFor="let subscriptionstatus of subscriptionStatus" [value]="subscriptionstatus">{{subscriptionstatus}} </option>
+        </select>
+        <span *ngIf="subscriptionForm.controls.subscriptionStatus.errors?.required && subscriptionForm.controls.subscriptionStatus.touched">
+          <p>Subscription Status is required</p>
+        </span>
+      </div>
+
+
+      <div class="form-group">
+        <label for="medicalcertificateurl">Medical Certificate DocUrl</label><br />
+        <input type="textbox" id="medicalcertificateurl" name="medicalcertificateurl" class="form-control" formControlName="medicalCertificateDocURL" (keypress)="limitInputMedicalCertificate($event)" />
+        <span *ngIf="subscriptionForm.controls.medicalCertificateDocURL.errors?.required && subscriptionForm.controls.medicalCertificateDocURL.touched">
+          <p>Medical Certificate DocURL is required</p>
+        </span>
+      </div>
+
+
+      <div class="dropdown">
+        <label>Relation To PolicyHolder</label><br/>
+        <select class="form-select" id="relationtopolicyholder" name="relationtopolicyholder" formControlName="relationToPolicyHolder">
+            <option *ngFor="let relation of RelationToPolicyHolder" [value]="relation">{{relation}} </option>
+        </select>
+        <span *ngIf="subscriptionForm.controls.relationToPolicyHolder.errors?.required && subscriptionForm.controls.relationToPolicyHolder.touched">
+          <p>Relation To PolicyHolder is required</p>
+        </span>
+      </div>
+      
+      <div class="dropdown">
+        <label>PolicyHolderId ProofType</label><br/>
+        <select class="form-select" id="policyholderidprooftype" name="policyholderidprooftype" formControlName="policyHolderIdProofType">
+            <option *ngFor="let type of PolicyHolderIdProofType" [value]="type">{{type}} </option>
+        </select>
+        <span *ngIf="subscriptionForm.controls.policyHolderIdProofType.errors?.required && subscriptionForm.controls.policyHolderIdProofType.touched">
+          <p>PolicyHolderId ProofType is required</p>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="policyholderidproofno">PolicyHolderId ProofNo</label><br />
+        <input type="text" id="policyholderidproofNo" name="policyholderidproofNo" class="form-control" formControlName="policyHolderIdProofNo" (keypress)="limitInputProofNo($event)"/>
+        <span *ngIf="subscriptionForm.controls.policyHolderIdProofNo.errors?.required && subscriptionForm.controls.policyHolderIdProofNo.touched">
+          <p>PolicyHolderId ProofNo is required</p>
+        </span>
+      </div> 
+    
+    <button class="btn btn-success" type="submit" (click)="saveSubscription()" [disabled]="!subscriptionForm.valid" >Subscribe</button>
+      
+    </form>
+  </div>

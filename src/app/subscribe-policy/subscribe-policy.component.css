@@ -1,0 +1,38 @@
+
+.container-fluid{
+    margin-top: 60px;
+    width: 50%;
+}
+.btn-success{
+    margin-top: 5px;
+}
+.policies-detail{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.subscribe-button{
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+}
+h2{
+    text-align: center;
+}
+
+.form-group{
+    margin-bottom:8px;
+}
+.dropdown{
+    margin-bottom: 8px;
+}
+table{
+    width: 93%;
+    margin: auto;
+    margin-top: 2rem;
+    border: 1px solid #afacac;
+}
+
+p{
+    color: red;
+}

@@ -1,0 +1,19 @@
+
+.container-fluid{
+    margin-top: 16px;
+    width: 40%;
+    padding:0.8rem 2rem;
+}
+
+.form-group{
+    margin-top:8px;
+    min-width: 40px;
+    padding:1px 32px;
+}
+
+h2{
+    text-align: center;
+}
+p{
+    color: red;
+}

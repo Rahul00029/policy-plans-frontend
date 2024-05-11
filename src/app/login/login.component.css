@@ -1,0 +1,23 @@
+#login .center {
+    text-align: center;
+  }
+  
+  #login .login {
+    max-width: 300px;
+  }
+  
+  #login .login-form{
+    padding:0px 25px;
+  }
+
+  form{
+    padding:8px;
+  }
+  .container-fluid{
+    width: fit-content;
+    margin-top: 60px;
+  }
+
+  h1{
+    text-align: center;
+  }

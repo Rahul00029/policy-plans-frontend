@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg" style="background-color: #50bfbf" data-bs-theme="light">
+    <div class="container-fluid">
+      <a class="navbar-brand" [routerLink]="['/home']"><img class="logo" src="../../assets/logo1.png" alt="Policy Plans" /></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item" *ngIf="role=='Manager'">
+            <a class="nav-link" [routerLink]="['/policy']">Add New Policy</a>
+          </li>
+          <li class="nav-item" *ngIf="role=='Manager' || role=='User'">
+            <a class="nav-link" [routerLink]="['/search-policy']">Show All Policies</a>
+          </li>
+        
+          
+        </ul>
+        <button id="logout-btn" class="btn " type="submit" (click)="onClick()" *ngIf="role=='Manager' || role=='User'; else logIn">Log Out</button>
+        <ng-template #logIn>
+          <button id="logout-btn" class="btn " type="submit" (click)="onClick()" >Log In</button>
+        </ng-template>
+        
+        
+      </div>
+    </div>
+</nav>

@@ -1,0 +1,80 @@
+<app-header></app-header>
+<div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="showSuccessMessage">
+  <strong>Congratulations!</strong> Policy added successfully.
+</div>
+
+<div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="showErrorMessage">
+  <strong>Failure!</strong> Policy Id already Exist, please give another ID.
+</div>
+
+
+<div class="container-fluid shadow bg-body rounded">
+    <h2>Policy Details</h2>
+    <form class="form" [formGroup]="policyForm" (ngSubmit)="savePolicy()"> 
+      <div class="form-group">
+        <label>Policy Id</label>
+        <input type="number" id="policyid" name="policyid" class="form-control" formControlName="policyId" required (keypress)="limitInputPolicyId($event)"/>
+        <span *ngIf="policyForm.controls.policyId.errors?.min && policyForm.controls.policyId.touched">
+            <p>Policy Id must be positive.</p>
+        </span>
+        <span *ngIf="policyForm.controls.policyId.errors?.required && policyForm.controls.policyId.touched">
+            <p>Policy Id is required</p>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="policyname">Policy Name</label><br />
+        <input type="text" id="policyname" name="policyname" class="form-control" formControlName="policyName" (keypress)="limitInputPolicyName($event)"/>
+        <span *ngIf="policyForm.controls.policyName.errors?.required && policyForm.controls.policyName.touched">
+            <p>Policy Name is required</p>
+        </span>
+        <span *ngIf="policyForm.controls.policyName.errors?.pattern && policyForm.controls.policyName.touched">
+            <p>Policy Name only contains alphabets</p>
+        </span>
+      </div>
+  
+      <div class="form-group">
+        <label for="policydescription">Policy Description</label><br />
+        <input type="textbox" id="policydescription" name="policydescription" class="form-control" formControlName="policyDescription" (keypress)="limitInputDesc($event)"/>
+        <span *ngIf="policyForm.controls.policyDescription.errors?.required && policyForm.controls.policyDescription.touched">
+            <p>Policy description is required</p>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="tenure">Tenure</label><br />
+        <input type="number" id="tenure" name="tenure" class="form-control" formControlName="tenure" (keypress)="limitInputTenure($event)"/>
+        <span *ngIf="policyForm.controls.tenure.errors?.required && policyForm.controls.tenure.touched">
+            <p>Tenure is required</p>
+        </span>
+        <span *ngIf="policyForm.controls.tenure.errors?.min && policyForm.controls.tenure.touched">
+            <p>Tenure must be positive.</p>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="monthlypremium">Monthly Premium</label><br />
+        <input type="number" id="monthlypremium" name="monthlypremium" class="form-control" formControlName="monthlyPremium" (keypress)="limitInputMpremium($event)"/>
+        <span *ngIf="policyForm.controls.monthlyPremium.errors?.required && policyForm.controls.monthlyPremium.touched">
+            <p>Monthly Premium is required</p>
+        </span>
+        <span *ngIf="policyForm.controls.monthlyPremium.errors?.min && policyForm.controls.monthlyPremium.touched">
+            <p>Monthly Premium must be positive.</p>
+        </span>
+      </div>
+
+      <div class="dropdown form-group">
+        <label>Policy Type</label><br/>
+        <select class="form-select" id="policytype" name="policytype" formControlName="typeOfPolicy">
+            <option *ngFor="let policyType of policyTypes" [value]="policyType.type">{{policyType.type}} </option>
+        </select>
+        <span *ngIf="policyForm.controls.typeOfPolicy.errors?.required && policyForm.controls.typeOfPolicy.touched">
+          <p>Policy Type is required</p>
+        </span>
+      </div>
+      
+      <div class="form-group"> 
+        <button class="btn btn-success" type="submit" [disabled]="!policyForm.valid">Save</button>
+      </div>
+    </form>
+  </div>
